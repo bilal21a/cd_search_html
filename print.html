@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visa Status</title>
+</head>
+<body>
+        <div id="status" class="status">Loading...</div>
+
+    <!-- Include Axios from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const passp = urlParams.get('passp');
+            const apid = urlParams.get('apid');
+            
+            if (passp && apid) {
+                axios.get(`https://canada-investment.com/admin/api/search_visa_status`, {
+                    params: {
+                        passp: passp,
+                        apid: apid,
+                        resApid: ''
+                    }
+                })
+                .then(response => {
+                    const statusDiv = document.getElementById('status');
+                    statusDiv.innerHTML = response.data;
+                    window.print(); 
+                })
+                .catch(error => {
+                    document.getElementById('status').textContent = 'Error fetching data';
+                    console.error('Error:', error);
+                });
+            } else {
+                document.getElementById('status').textContent = 'Missing parameters in URL';
+            }
+        });
+    </script>
+</body>
+</html>
