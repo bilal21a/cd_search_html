@@ -321,9 +321,10 @@
 		function shfunc() {
 		var passp = document.getElementById("passp").value;
 		var appid = document.getElementById("appid").value;
-        
-        var iframe = document.getElementById("myIfrm");
-        iframe.src = "https://canada-investment.com/admin/api/search_visa_status?passp="+passp+"&apid="+appid;
+        if (passp&&appid) {
+			var iframe = document.getElementById("myIfrm");
+			iframe.src = "https://canada-investment.com/admin/api/search_visa_status?passp="+passp+"&apid="+appid;
+		}
     }
 	document.getElementById('printBtn').addEventListener('click', function() {
 		var passp = document.getElementById("passp").value;
